@@ -169,19 +169,6 @@ function handleMouseOut(d, i) {
   d3.select(this).style("opacity", 1);
 }
 
-
-/*function handleMouseClick(d, i) {
-  var pint = parseInt(d.properties.dist_num, 10);
-  if(datamap.get(pint) === undefined) {
-    d3.select("#info").text('In police district '+ d.properties.dist_num +' there were no \'' + curType.toLowerCase() + '\' crimes in ' + year);
-  } else if (datamap.get(pint) === 1){
-    d3.select("#info").text('In police district '+ d.properties.dist_num +' there was ' + datamap.get(pint) + ' \'' + curType.toLowerCase() + '\' crimes in ' + year);
-  } else {
-    d3.select("#info").text('In police district '+ d.properties.dist_num +' there were ' + datamap.get(pint) + ' \'' + curType.toLowerCase() + '\' type crimes in ' + year);
-  }
-}*/
-  
-
 function updateMap(type, year) {
   if(year != undefined && type != undefined) {
     //use the value to update the map?
