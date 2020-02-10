@@ -94,3 +94,10 @@ div.tooltip {
   border-radius: 8px;
   color: #333399;	
 }
+
+#sliderContainer {
+  text-align: right;
+  position: relative;
+  margin-right: 600px;
+  top: 160px;
+}
