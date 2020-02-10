@@ -90,9 +90,9 @@ div.tooltip {
   text-align: center;								
   padding: 2px;				
   font: 16px sans-serif;		
-  background: lightsteelblue;		
-  border-radius: 8px;
-  color: #333399;	
+  background: #F0F0F0;		
+  border-radius: 4px;
+  color: black;	
 }
 
 #timeslide {
