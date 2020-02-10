@@ -48,53 +48,8 @@ select {
   font-size: 16px;
   cursor: pointer;
   background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.342);
 }
-
-/* Drop Down list */
-.dropDown {
-  background-color: #3498DB;
-  color: aliceblue;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-
-/* DropDown List on hover and focus */
-.dropDown:hover, .dropDown:focus {
-  background-color: #2980B9;
-}
-
-/* The container <div> - needed the Drop Down content */
-.dropdownB {
-  display: inline-block;
-}
-
-/* Drop down Content Hiden*/
-.drop_con {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* inside the Drop Down */
-.drop_con a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Color of dropdown on hover */
-.drop_con a:hover {background-color: #ddd}
-
-/* Show the Drop Down List */
-.show {display:block;}
-
 
 text, p, h1, h2, h3, h4, h5, h6 {
 	font-family: Arial;
@@ -127,3 +82,15 @@ text, p, h1, h2, h3, h4, h5, h6 {
 	margin-left: 10px;
 }
 
+/*
+  tip
+*/
+div.tooltip {	
+  position: absolute;			
+  text-align: center;								
+  padding: 2px;				
+  font: 16px sans-serif;		
+  background: lightsteelblue;		
+  border-radius: 8px;
+  color: #333399;	
+}

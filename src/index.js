@@ -89,6 +89,10 @@ var projection = d3.geoAlbers()
 var path = d3.geoPath()
          .projection(projection);
 
+// define feagure div for tip
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
 // Create SVG element
 var svg = d3.select("#map")
       .append("svg")
@@ -111,18 +115,48 @@ var map = svg.selectAll("path")
         .on("mouseout", handleMouseOut)
         .on("click", handleMouseClick);
 
-function handleMouseOver(d, i) { 
+function handleMouseOver(d, i) {
   // Use D3 to select element, change color and size
   d3.select(this).style("opacity", .7);
+
+  // tooltip
+  var pint = parseInt(d.properties.dist_num, 10);
+  if(datamap.get(pint) === undefined) {
+    div.transition()		
+                .duration(200)		
+                .style("opacity", .9);
+    div	.html(`In police district ${d.properties.dist_num} there were no '${curType.toLowerCase()}' crimes in ${year}`)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+  } else if (datamap.get(pint) === 1){
+    div.transition()		
+                .duration(200)		
+                .style("opacity", .9);
+    div	.html(`In police district ${d.properties.dist_num} there was ${datamap.get(pint)} '${curType.toLowerCase()}' crimes in ${year}`)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");   
+  } else {
+    div.transition()		
+                .duration(200)		
+                .style("opacity", .9);
+    div	.html(`In police district ${d.properties.dist_num} there were ${datamap.get(pint)} '${curType.toLowerCase()}' type crimes in ${year}`)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+    
+  }
 }
 
 function handleMouseOut(d, i) { 
   // Use D3 to select element, change color and size
   //console.log("mouse", this);
+  div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
   d3.select(this).style("opacity", 1);
 }
 
-function handleMouseClick(d, i) {
+
+/*function handleMouseClick(d, i) {
   var pint = parseInt(d.properties.dist_num, 10);
   if(datamap.get(pint) === undefined) {
     d3.select("#info").text('In police district '+ d.properties.dist_num +' there were no \'' + curType.toLowerCase() + '\' crimes in ' + year);
@@ -131,7 +165,7 @@ function handleMouseClick(d, i) {
   } else {
     d3.select("#info").text('In police district '+ d.properties.dist_num +' there were ' + datamap.get(pint) + ' \'' + curType.toLowerCase() + '\' type crimes in ' + year);
   }
-}
+}*/
   
 
 function updateMap(type, year) {
