@@ -9,6 +9,9 @@ var curType;
 
 var years = ["Select Year", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"];
 
+var inputValue = null;
+var sliderYear = ["2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018"]
+
 var selectYear = d3.select(".dropdown")
     .append("select");
 
@@ -52,6 +55,17 @@ d3.csv('https://data.cityofchicago.org/resource/ijzp-q8t2.csv', function(d) {
         .attr("value", function (d) { return d; })
         .text(function (d) { return d; });
 });
+
+d3.select("#timeslide").on("input", function() {
+  update(+this.value);
+});
+
+function update(value) {
+  document.getElementById("range").innerHTML=sliderYear[value];
+  inputValue = sliderYear[value];
+  d3.selectAll(".district")
+      .attr("fill", dateMatch);
+}
 
 function distinctTypes(rows) {
   for(var i = 0; i < rows.length; i++) {
