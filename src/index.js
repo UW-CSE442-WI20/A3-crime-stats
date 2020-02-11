@@ -53,12 +53,21 @@ d3.csv('https://data.cityofchicago.org/resource/ijzp-q8t2.csv', function(d) {
         .append("option")
         .attr("class", "dropdown")
         .attr("value", function (d) { return d; })
-        .text(function (d) { return d; });
+        .text(function (d) { return toProperCase(d);});
 });
 
 d3.select("#timeslide").on("input", function() {
   update(+this.value);
 });
+
+function toProperCase(value) {
+  var words = value.split(" ");
+  var result = words[0].substring(0, 1).toUpperCase() + words[0].substring(1, words[0].length).toLowerCase(); 
+  for (var i = 1; i < words.length; i++) {
+    result += " " + words[i].substring(0, 1).toUpperCase() + words[i].substring(1, words[i].length).toLowerCase(); 
+  }
+  return result;
+}
 
 function update(value) {
   document.getElementById("range").innerHTML=sliderYear[value];
@@ -71,7 +80,7 @@ function distinctTypes(rows) {
   for(var i = 0; i < rows.length; i++) {
     types[i] = rows[i].type;
   }
-  types = [...new Set(types)];
+  types = [...new Set(types)].sort();
   types.unshift("Select Type of Crime");
   console.log(types);
   return types;
@@ -168,7 +177,7 @@ function handleMouseClick(d, i) {
       div.transition()    
         .duration(150)    
         .style("opacity", .9);
-      div.html(`In police district ${d.properties.dist_num} there was ${datamap.get(pint)} '${curType.toLowerCase()}' crimes in ${year}`) 
+      div.html(`In police district ${d.properties.dist_num} there were ${datamap.get(pint)} '${curType.toLowerCase()}' crimes in ${year}`) 
                   .style("left", (d3.event.pageX) + "px")   
                   .style("top", (d3.event.pageY - 28) + "px");
       
