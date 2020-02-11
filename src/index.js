@@ -159,7 +159,7 @@ function handleMouseClick(d, i) {
   var pint = parseInt(d.properties.dist_num, 10);
 
   if(curType !== undefined && year !== undefined) {
-    if(datamap.get(pint) === undefined) {
+    if(datamap.get(pint) === undefined || datamap.get(pint) === 0) {
       div.transition()    
         .duration(150)    
         .style("opacity", .9);
