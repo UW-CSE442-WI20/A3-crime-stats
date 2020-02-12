@@ -492,7 +492,7 @@ function handleMouseClick(d, i) {
   var pint = parseInt(d.properties.dist_num, 10);
 
   if (curType !== undefined && year !== undefined) {
-    if (datamap.get(pint) === undefined) {
+    if (datamap.get(pint) === undefined || datamap.get(pint) === 0) {
       div.transition().duration(150).style("opacity", .9);
       div.html("In police district ".concat(d.properties.dist_num, " there were no '").concat(curType.toLowerCase(), "' crimes in ").concat(year)).style("left", d3.event.pageX + "px").style("top", d3.event.pageY - 28 + "px");
     } else if (datamap.get(pint) === 1) {
@@ -624,7 +624,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64332" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59012" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
