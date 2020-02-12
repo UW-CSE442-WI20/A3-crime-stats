@@ -210,87 +210,87 @@ function updateMap(type, year) {
       var min = Math.min(...datamap.values());
       var max = Math.max(...datamap.values());
       numColors = 5; 
-      if (max - min >= 5) {
-        colorScale = d3.scaleQuantile()
-          .domain([min, max])
-          .range(d3.schemeBlues[numColors]);        
-      } else if (max - min >= 2) {
-        numColors = (max - min) + 1;
-        colorScale = d3.scaleQuantile()
-          .domain([min, max])
-          .range(d3.schemeBlues[numColors]);
-      }  else if (max - min == 1) {
-        numColors = (max - min) + 1;
-        colorScale = d3.scaleQuantile()
-          .domain([min, max])
-          .range(["#eff3ff", "#bdd7e7"]) // d3.schemeBlues doesn't work for input < 3     
-      } else if (max - min == 0) {
-        numColors = (max - min) + 1;
-        colorScale = d3.scaleQuantile()
-          .domain([min, max])
-          .range(["#eff3ff"]) // d3.schemeBlues doesn't work for input < 3
-      }
 
-      svg.selectAll('path')
-        .style('fill', function (d) {
-            var pint = parseInt(d.properties.dist_num, 10);
-            var color = datamap.get(pint);
-            if(isNaN(color)) {
-              return "#d3d3d3";
-            } else {
-              return colorScale(color);
-            }
-        });
-
-        d3.select("#legend").remove();
-
-        document.getElementById("legendId").style.visibility = "visible";
-        // Create Legend
-        var svgLegend = d3.select('#legendId')
-          .append("svg")
-          .attr("id", "legend")
-          .attr("width", 200)
-          .attr("height", 200);
-
-        var legend_data = [];
-        var difference = (max - min + 1) / numColors;
-
-        // console.log("max", max);
-        // console.log("max", min);
-        // console.log("max", numColors);
-
-        for (var i = 0; i < numColors; i++) {
-          legend_data.push(min + (difference * i + 0.1));
+        if (max - min >= 5) {
+          colorScale = d3.scaleQuantile()
+            .domain([min, max])
+            .range(d3.schemeBlues[numColors]);        
+        } else if (max - min >= 2) {
+          numColors = (max - min) + 1;
+          colorScale = d3.scaleQuantile()
+            .domain([min, max])
+            .range(d3.schemeBlues[numColors]);
+        }  else if (max - min == 1) {
+          numColors = (max - min) + 1;
+          colorScale = d3.scaleQuantile()
+            .domain([min, max])
+            .range(["#eff3ff", "#bdd7e7"]) // d3.schemeBlues doesn't work for input < 3     
+        } else if (max - min == 0) {
+          numColors = (max - min) + 1;
+          colorScale = d3.scaleQuantile()
+            .domain([min, max])
+            .range(["#eff3ff"]) // d3.schemeBlues doesn't work for input < 3
         }
 
-        console.log(legend_data);
-        var legend_box_size = 20
-        svgLegend.selectAll("legendSquares")
-          .data(legend_data)
-          .enter()
-          .append("rect")
-            .attr("x", 10)
-            .attr("y", function(d,i){ return 10 + i*(legend_box_size+5)}) 
-            .attr("width", legend_box_size)
-            .attr("height", legend_box_size)
-            .style("fill", function(d, i){ return colorScale(d)})
 
-        svgLegend.selectAll("legendLabels")
-          .data(legend_data)
-          .enter()
-          .append("text")
-            .attr("x", 10 + legend_box_size * 1.2)
-            .attr("y", function(d,i){ return 10 + i*(legend_box_size+5) + (legend_box_size/2)})
-            .text(function(d){ if (numColors >= 5) {
-                  return (Math.floor(d - 0.1)) + " - " + Math.floor(d + difference)}
-                else {
-                  return d - 0.1;
-                }})
-            .attr("text-anchor", "left")
-            .style("alignment-baseline", "middle")
+        svg.selectAll('path')
+          .style('fill', function (d) {
+              var pint = parseInt(d.properties.dist_num, 10);
+              var color = datamap.get(pint);
+              if(isNaN(color)) {
+                return "#d3d3d3";
+              } else {
+                return colorScale(color);
+              }
+          });
 
-            });
+        if (!(max === Infinity || max === -Infinity)) { // data is available
+        d3.select("#legend").remove();
+          document.getElementById("legendId").style.visibility = "visible";
+          // Create Legend
+          var svgLegend = d3.select('#legendId')
+            .append("svg")
+            .attr("id", "legend")
+            .attr("width", 200)
+            .attr("height", 200);
 
-      }
+          var legend_data = [];
+          var difference = (max - min + 1) / numColors;
+
+          for (var i = 0; i < numColors; i++) {
+            legend_data.push(min + (difference * i + 0.01));
+          }
+
+          var legend_box_size = 20
+          svgLegend.selectAll("legendSquares")
+            .data(legend_data)
+            .enter()
+            .append("rect")
+              .attr("x", 10)
+              .attr("y", function(d,i){ return 10 + i*(legend_box_size+5)}) 
+              .attr("width", legend_box_size)
+              .attr("height", legend_box_size)
+              .style("fill", function(d, i){ return colorScale(d)})
+
+          svgLegend.selectAll("legendLabels")
+            .data(legend_data)
+            .enter()
+            .append("text")
+              .attr("x", 10 + legend_box_size * 1.2)
+              .attr("y", function(d,i){ return 10 + i*(legend_box_size+5) + (legend_box_size/2)})
+              .text(function(d){ if (numColors >= 5) {
+                    return (Math.floor(d)) + " - " + Math.floor(d + difference)}
+                  else {
+                    return Math.floor(d);
+                  }})
+              .attr("text-anchor", "left")
+              .style("alignment-baseline", "middle")
+        } else {
+          document.getElementById("legendId").style.visibility = "hidden";
+        }
+    });
+    } else {
+      document.getElementById("legendId").style.visibility = "hidden";
+    }
   datamap.clear();
 }
