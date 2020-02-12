@@ -150,11 +150,11 @@ range = [2009, 2019],
 step = 1; 
 
     // append svg
-var svg = d3.select('div#chart').append('svg')
+var svgslider = d3.select('div#chart').append('svg')
     .attr('width', width)
     .attr('height', height);
 
-var slider = svg.append('g')
+var slider = svgslider.append('g')
     .classed('slider', true)
     .attr('transform', 'translate(' + margin.left +', '+ (height/2) + ')');
 
@@ -197,7 +197,7 @@ var xAxis = d3.axisBottom(xScale).tickValues(rangeValues).tickFormat(function (d
         .call(drag);
 
     // text to display
-    var text = svg.append('text').attr('transform', 'translate(' + (width/2) + ', ' + height/3 + ')')
+    var text = svgslider.append('text').attr('transform', 'translate(' + (width/2) + ', ' + height/3 + ')')
         .text('Year: 0');
 
     // initial transition
