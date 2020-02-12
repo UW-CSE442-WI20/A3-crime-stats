@@ -14,7 +14,7 @@
 h1{
   font-size: 3em;
   font-weight: 700;
-  color: #087fc0;
+  color: darkblue;
 }
 
 a{
@@ -49,10 +49,11 @@ select {
   cursor: pointer;
   background-color: #f1f1f1;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.342);
+  font-family: 'Roboto Mono', monospace;
 }
 
 text, p, h1, h2, h3, h4, h5, h6 {
-	font-family: Arial;
+	font-family: 'Roboto Mono', monospace;
 }
 
 .grid-container {
