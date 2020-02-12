@@ -246,7 +246,9 @@ function updateMap(type, year) {
 
         if (!(max === Infinity || max === -Infinity)) { // data is available
         d3.select("#legend").remove();
-          document.getElementById("legendId").style.visibility = "visible";
+        document.getElementById("legendId").style.visibility = "visible";
+        document.getElementById("no-data-message").style.visibility = "hidden";
+
           // Create Legend
           var svgLegend = d3.select('#legendId')
             .append("svg")
@@ -285,8 +287,9 @@ function updateMap(type, year) {
                   }})
               .attr("text-anchor", "left")
               .style("alignment-baseline", "middle")
-        } else {
+        } else { // no data available 
           document.getElementById("legendId").style.visibility = "hidden";
+          document.getElementById("no-data-message").style.visibility = "visible";
         }
     });
     } else {

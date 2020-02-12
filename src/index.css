@@ -62,7 +62,7 @@ text, p, h1, h2, h3, h4, h5, h6 {
 }
 
 #map {
-	grid-row: 1 / span 2;
+	grid-row: 1 / span 3;
 }
 
 #filters {
@@ -82,9 +82,12 @@ text, p, h1, h2, h3, h4, h5, h6 {
 	margin-left: 10px;
 }
 
-/*
-  tip
-*/
+#no-data-div {
+	margin-left:10px;
+	visibility: hidden;
+	grid-column: 2;
+}
+
 div.tooltip {	
   position: absolute;			
   text-align: center;								
