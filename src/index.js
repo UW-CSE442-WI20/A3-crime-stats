@@ -259,39 +259,30 @@ function handleMouseClick(d, i) {
 
   if(curType !== undefined && year !== undefined) {
     if(datamap.get(pint) === undefined || datamap.get(pint) === 0) {
-      console.log(datamap.get(pint));
-      div.transition()    
-        .duration(150)    
-        .style("opacity", .9);
-      div.html(`In police district ${d.properties.dist_num} there were no '${curType.toLowerCase()}' crimes in ${year}`) 
-        .style("left", (d3.event.pageX) + "px")   
-        .style("top", (d3.event.pageY - 28) + "px");
+     /// console.log(datamap.get(pint));
+      toolTipMap(`In police district ${d.properties.dist_num} there were no '${curType.toLowerCase()}' crimes in ${year}`);
     } else if (datamap.get(pint) === 1){
-      div.transition()    
-        .duration(150)    
-        .style("opacity", .9);
-      div.html(`In police district ${d.properties.dist_num} there was ${datamap.get(pint)} '${curType.toLowerCase()}' crime in ${year}`)  
-        .style("left", (d3.event.pageX) + "px")   
-        .style("top", (d3.event.pageY - 28) + "px");   
+         toolTipMap(`In police district ${d.properties.dist_num} there was ${datamap.get(pint)} '${curType.toLowerCase()}' crime in ${year}`);
     } else {
-      div.transition()    
-        .duration(150)    
-        .style("opacity", .9);
-      div.html(`In police district ${d.properties.dist_num} there were ${datamap.get(pint)} '${curType.toLowerCase()}' crimes in ${year}`) 
-                  .style("left", (d3.event.pageX) + "px")   
-                  .style("top", (d3.event.pageY - 28) + "px");
+      toolTipMap(`In police district ${d.properties.dist_num} there were ${datamap.get(pint)} '${curType.toLowerCase()}' crimes in ${year}`);
       
     }
   } else {
-    div.transition()    
-      .duration(150)    
-      .style("opacity", .9);
-      div.html(`police district ${d.properties.dist_num}`)  
-        .style("left", (d3.event.pageX) + "px")   
-        .style("top", (d3.event.pageY - 28) + "px");
+    toolTipMap(`police district ${d.properties.dist_num}`);
   }
 }
 
+// mouse click
+function toolTipMap(d){
+  div.transition()    
+        .duration(150)    
+        .style("opacity", .9);
+      div.html(d) 
+        .style("left", (d3.event.pageX) + "px")   
+        .style("top", (d3.event.pageY - 28) + "px");
+}
+
+// map buld up
 function updateMap(type, year) {
   if(year != undefined && type != undefined) {
     //use the value to update the map?
